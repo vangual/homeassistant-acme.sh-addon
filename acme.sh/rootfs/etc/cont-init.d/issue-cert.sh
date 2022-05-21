@@ -10,39 +10,37 @@ fi
 
 ACCOUNT_EMAIL=$(bashio::config 'accountemail')
 DOMAIN=$(bashio::config 'domain')
-DNS_PROTO=$(bashio::config 'dns')
-DNS_ENV_OPTIONS=$(jq -r '.dnsEnvVariables |map("export \(.name)=\(.value|tojson)")|.[]' $CONFIG_PATH)
+DNS_PROVIDER=$(bashio::config 'dns-provider')
+DNS_ENV_VARS=$(jq -r '.dns-env-vars |map("export \(.name)=\(.value|tojson)")|.[]' $CONFIG_PATH)
 KEY_LENGTH=$(bashio::config 'keylength')
 FULLCHAIN_FILE=$(bashio::config 'fullchainfile')
 KEY_FILE=$(bashio::config 'keyfile')
 
-source <(echo ${DNS_ENV_OPTIONS});
+source <(echo ${DNS_ENV_VARS});
 
 bashio::log.info "Registering account"
-acme.sh --register-account -m ${ACCOUNT_EMAIL}
+acme.sh --register-account -m "$ACCOUNT_EMAIL"
 
 bashio::log.info "Issuing certificate for domain: ${DOMAIN}"
 
 function issue {
     # Issue the certificate exit corretly if is not time to renew
     local RENEW_SKIP=2
-    acme.sh --issue --domain ${DOMAIN} \
-        --keylength ${KEY_LENGTH} \
-        --dns ${DNS_PROTO} \
+    acme.sh --issue --domain "$DOMAIN" \
+        --keylength "$KEY_LENGTH" \
+        --dns "$DNS_PROVIDER" \
+        --debug \
         || { ret=$?; [ $ret -eq ${RENEW_SKIP} ] && return 0 || return $ret ;}
 }
 
 issue
 
-bashio::log.info "Installing certificate to: /ssl/${DOMAIN}"
-keyArg=$( [[ ${KEY_LENGTH} == ec-* ]] && echo '--ecc' || echo '' )
+bashio::log.info "Installing private key to /ssl/$KEY_FILE and certificate to /ssl/$FULLCHAIN_FILE"
+ECC_ARG=$( [[ ${KEY_LENGTH} == ec-* ]] && echo '--ecc' || echo '' )
 [ ! -d "/ssl/${DOMAIN}/" ] && mkdir -p "/ssl/${DOMAIN}/"
-acme.sh --install-cert --domain ${DOMAIN} \
-    ${keyArg} \
-    --key-file       "/ssl/${DOMAIN}/${KEY_FILE}" \
-    --fullchain-file "/ssl/${DOMAIN}/${FULLCHAIN_FILE}"
+acme.sh --install-cert --domain "$DOMAIN" "$ECC_ARG" \
+        --key-file       "/ssl/$KEY_FILE" \
+        --fullchain-file "/ssl/$FULLCHAIN_FILE"
 
-
-bashio::log.info "All ok, running cron to automatically renew certificate"
-trap "echo stop && killall crond && exit 0" SIGTERM SIGINT
-crond && while true; do sleep 1; done;
+bashio::log.info "Configuration complete."
+crontab -l

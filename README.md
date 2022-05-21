@@ -1,9 +1,10 @@
 # Home Assistant Add-on: acme.sh
 
-This a home assistant integration of the acme.sh project. It allows to generate a TLS certificate using the ACME protocol.
+This Home Assistant addon uses acme.sh to obtain SSL/TLS certificates from ZeroSSL or Let's Encrypt.
 
 ## Configuration
-Tested with the *dns_cf* configuration but It should work, the dnsEnvVariables can be configured with any environment required for acme.sh to work.
+
+Tested with the *dns_cf* configuration but It should work, the `dnsEnvVariables` can be configured with any environment required for `acme.sh` to work.
 
 ```yaml
 accountemail: mail@example.com
@@ -21,7 +22,7 @@ fullchainfile: fullchain.pem
 keyfile: privkey.pem
 ```
 
-## Home Assistant /config/configuration.yaml
+## Home Assistant `/config/configuration.yaml`
 
 ```yaml
 http:
@@ -35,4 +36,4 @@ http:
 ## About
 
 [acme.sh][acme.sh] an ACME protocol client written purely in Shell (Unix shell) language.
-[acme.sh]: https://github.com/acmesh-official/acme.sh
+[acme.sh]: <https://github.com/acmesh-official/acme.sh>
