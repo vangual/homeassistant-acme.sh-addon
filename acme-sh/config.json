@@ -7,6 +7,7 @@
   "startup": "services",
   "map": ["ssl:rw", "config:rw"],
   "boot": "auto",
+  "init": false,
   "options": {
     "accountemail": null,
     "domain": null,
