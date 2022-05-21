@@ -16,10 +16,7 @@ DNS_ENV_VARS=$(jq -r '.dnsenvvars |map("export \(.name)=\(.value|tojson)")|.[]' 
 KEY_LENGTH=$(bashio::config 'keylength')
 FULLCHAIN_FILE=$(bashio::config 'fullchainfile')
 KEY_FILE=$(bashio::config 'keyfile')
-DEBUG=$(bashio::config 'debug')
-
-DEBUG_ARG=$( [[ ${DEBUG} == true ]] && echo '--debug 2 --log 2' || echo '' )
-
+DEBUG_LEVEL=$(bashio::config 'debug')
 
 # shellcheck source=/dev/null
 source <(echo "$DNS_ENV_VARS");
@@ -35,7 +32,7 @@ function issue {
     acme.sh --issue --domain "$DOMAIN" \
         --keylength "$KEY_LENGTH" \
         --dns "$DNS_PROVIDER" \
-        "$DEBUG_ARG" \
+        --log --debug "$DEBUG_LEVEL" \
         || { ret=$?; [ $ret -eq ${RENEW_SKIP} ] && return 0 || return $ret ;}
 }
 
@@ -47,7 +44,7 @@ ECC_ARG=$( [[ ${KEY_LENGTH} == ec-* ]] && echo '--ecc' || echo '' )
 acme.sh --install-cert --domain "$DOMAIN" "$ECC_ARG" \
         --key-file       "/ssl/$KEY_FILE" \
         --fullchain-file "/ssl/$FULLCHAIN_FILE" \
-        "$DEBUG_ARG"
+        --log --debug "$DEBUG_LEVEL"
 
 bashio::log.info "Configuration complete."
 crontab -l
