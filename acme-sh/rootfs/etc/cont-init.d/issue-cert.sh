@@ -39,7 +39,7 @@ issue
 bashio::log.info "Installing private key to /ssl/$KEY_FILE and certificate to /ssl/$FULLCHAIN_FILE"
 ECC_ARG=$( [[ ${KEY_LENGTH} == ec-* ]] && echo '--ecc' || echo '' )
 
-acme.sh --install-cert --domain "$DOMAIN" "$ECC_ARG" \
+acme.sh --install-cert --domain "$DOMAIN" $ECC_ARG \
         --key-file       "/ssl/$KEY_FILE" \
         --fullchain-file "/ssl/$FULLCHAIN_FILE"
 
