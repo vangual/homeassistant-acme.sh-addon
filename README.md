@@ -1,6 +1,6 @@
 # Home Assistant Add-on: acme.sh
 
-This Home Assistant addon uses acme.sh to obtain SSL/TLS certificates from ZeroSSL or Let's Encrypt.
+This Home Assistant addon uses `acme.sh` to obtain SSL/TLS certificates from ZeroSSL or Let's Encrypt.
 
 ## Configuration
 

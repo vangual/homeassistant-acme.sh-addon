@@ -8,6 +8,6 @@
   },
   "args": {
     "AUTO_UPGRADE": "1",
-    "LE_CONFIG_HOME": "/ssl/acme.sh"
+    "LE_CONFIG_HOME": "/data/acme.sh"
   }
 }
