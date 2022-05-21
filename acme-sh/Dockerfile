@@ -23,5 +23,3 @@ RUN curl https://get.acme.sh | sh && \
     cp ${LE_CONFIG_HOME}/account.conf /default_account.conf
 
 COPY rootfs/ /
-
-ENTRYPOINT ["/init"]
