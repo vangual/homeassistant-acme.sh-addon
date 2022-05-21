@@ -4,33 +4,44 @@ This Home Assistant addon uses `acme.sh` to obtain SSL/TLS certificates from Zer
 
 ## Configuration
 
-Tested with the *dns_cf* configuration but It should work, the `dnsEnvVariables` can be configured with any environment required for `acme.sh` to work.
+Tested with the *dns_oci* configuration but It should work, the `dnsEnvVariables` can be configured with any environment required for `acme.sh` to work.
 
 ```yaml
 accountemail: mail@example.com
 domain: home.example.com
-dns: dns_cf
-dnsEnvVariables:
-  - name: CF_Token
+dnsprovider: dns_cf
+dnsenvvars:
+  - name: OCI_CLI_USER
     value: xxxx
-  - name: CF_Account_ID
+  - name: OCI_CLI_TENANCY
     value: xxxx
-  - name: CF_Zone_ID
+  - name: OCI_CLI_REGION
     value: xxxx
-keylength: ec-256
+  - name: OCI_CLI_KEY
+    value: |-
+      -----BEGIN PRIVATE KEY-----
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7JXeeUQ5G3DhB
+    ...
+    ...
+    nmdtoD48M6MSrVAptxAeEbCPHeWrOyYWTG1O5+tl6nsFE3vT/K1oQsEjvgrpkt0c
+    oxA0gRoymxuHyBBS4Wl+NFg=
+    -----END PRIVATE KEY-----
+
+keylength: 4096
 fullchainfile: fullchain.pem
 keyfile: privkey.pem
 ```
 
-## Home Assistant `/config/configuration.yaml`
+## Configure Home Assistant
+
+Add `ssl_certificate` and `ssl_key` to  `/config/configuration.yaml`:
 
 ```yaml
 http:
-  server_port: 443
+  ...
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
-  ip_ban_enabled: true
-  login_attempts_threshold: 5
+  ...
 ```
 
 ## About
