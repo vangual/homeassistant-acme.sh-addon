@@ -1,6 +1,6 @@
 {
-  "name": "acme.sh addon for Home Assistant (van)",
-  "version": "0.1.2-van",
+  "name": "acme.sh (van)",
+  "version": "0.1.3-van",
   "slug": "acme-sh",
   "description": "Full ACME client to generate and renew TLS/SSL certificates",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
