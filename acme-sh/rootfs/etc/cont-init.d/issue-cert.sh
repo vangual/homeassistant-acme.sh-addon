@@ -12,6 +12,7 @@ fi
 ACCOUNT_EMAIL=$(bashio::config 'accountemail')
 SERVER=$(bashio::config 'server')
 DOMAIN=$(bashio::config 'domain')
+CHALLENGE_ALIAS=$(bashio::config 'challengealias')
 DNS_PROVIDER=$(bashio::config 'dnsprovider')
 DNS_ENV_VARS=$(jq --raw-output '.dnsenvvars | map("export \(.name)='\''\(.value)'\''") | .[]' $CONFIG_PATH)
 KEY_LENGTH=$(bashio::config 'keylength')
@@ -30,10 +31,13 @@ acme.sh --register-account -m "$ACCOUNT_EMAIL"
 
 bashio::log.info "Issuing certificate for domain: $DOMAIN"
 
+CHALLENGE_ALIAS_ARG=$( [[ -n "$CHALLENGE_ALIAS" ]] && echo "--challenge-alias \"$CHALLENGE_ALIAS\"" || echo '' )
+
 function issue {
     # Issue the certificate, if necessary. Exit cleanly if it exists.
     local RENEW_SKIP=2
     acme.sh --issue --domain "$DOMAIN" \
+        $CHALLENGE_ALIAS_ARG \
         --keylength "$KEY_LENGTH" \
         --dns "$DNS_PROVIDER" \
         || { ret=$?; [ $ret -eq ${RENEW_SKIP} ] && return 0 || return $ret ;}

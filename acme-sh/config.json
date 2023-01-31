@@ -12,6 +12,7 @@
     "accountemail": null,
     "server": "letsencrypt",
     "domain": null,
+    "challengealias": null,
     "dnsprovider": null,
     "dnsenvvars": [null],
     "keylength": "4096",
@@ -22,6 +23,7 @@
     "accountemail": "str",
     "server": "match(letsencrypt|letsencrypt_test|buypass|buypass_test|zerossl|sslcom|google|googletest)",
     "domain": "str",
+    "challengealias": "str?",
     "dnsprovider": "str",
     "dnsenvvars": [
       {"name": "str", "value": "str"}
