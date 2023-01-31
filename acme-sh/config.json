@@ -10,6 +10,7 @@
   "init": false,
   "options": {
     "accountemail": null,
+    "server": "letsencrypt",
     "domain": null,
     "dnsprovider": null,
     "dnsenvvars": [null],
@@ -19,6 +20,7 @@
   },
   "schema": {
     "accountemail": "str",
+    "server": "match(letsencrypt|letsencrypt_test|buypass|buypass_test|zerossl|sslcom|google|googletest)",
     "domain": "str",
     "dnsprovider": "str",
     "dnsenvvars": [

@@ -10,6 +10,7 @@ if [ ! -f "$LE_CONFIG_HOME/account.conf" ]; then
 fi
 
 ACCOUNT_EMAIL=$(bashio::config 'accountemail')
+SERVER=$(bashio::config 'server')
 DOMAIN=$(bashio::config 'domain')
 DNS_PROVIDER=$(bashio::config 'dnsprovider')
 DNS_ENV_VARS=$(jq --raw-output '.dnsenvvars | map("export \(.name)='\''\(.value)'\''") | .[]' $CONFIG_PATH)
@@ -19,6 +20,10 @@ KEY_FILE=$(bashio::config 'keyfile')
 
 # shellcheck source=/dev/null
 source <(echo "$DNS_ENV_VARS");
+
+# Set the default CA
+bashio::log.info "Setting the default CA to: $SERVER"
+acme.sh --set-default-ca --server "$SERVER"
 
 bashio::log.info "Registering account"
 acme.sh --register-account -m "$ACCOUNT_EMAIL"
