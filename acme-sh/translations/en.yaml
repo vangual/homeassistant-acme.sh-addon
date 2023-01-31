@@ -1,0 +1,7 @@
+configuration:
+  server:
+    name: CA server to use
+    description: One of the supported CA servers by acme.sh. For more information see <a href="https://github.com/acmesh-official/acme.sh/wiki/Server">the documentation</a>. Only the shorthand labels are supported currently.
+  challengealias:
+    name: Challenge alias domain
+    description: Alternative domain to modify and validate against. See <a href="https://github.com/acmesh-official/acme.sh/wiki/DNS-alias-mode">the wiki page</a> for details.
