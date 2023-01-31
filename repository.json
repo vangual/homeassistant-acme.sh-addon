@@ -1,5 +1,5 @@
 {
-  "name": "acme.sh addon for Home Assistant",
-  "url": "https://github.com/Djelibeybi/homeassistant-acme.sh-addon",
-  "maintainer": "Djelibeybi"
+  "name": "acme.sh addon for Home Assistant (van)",
+  "url": "https://github.com/vangual/homeassistant-acme.sh-addon",
+  "maintainer": "vangual"
 }

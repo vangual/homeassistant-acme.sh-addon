@@ -46,5 +46,8 @@ http:
 
 ## About
 
-[acme.sh][acme.sh] an ACME protocol client written purely in Shell (Unix shell) language.
-[acme.sh]: <https://github.com/acmesh-official/acme.sh>
+This version of the addon is based on:
+ - [Initial version by Anggol](https://github.com/Angoll/acme.sh-homeassistant-addon)
+ - [Enhanced fork by Djelibeybi](https://github.com/Djelibeybi/homeassistant-acme.sh-addon)
+ 
+[acme.sh](https://github.com/acmesh-official/acme.sh) is an ACME protocol client written purely in Shell (Unix shell) language.
