@@ -11,6 +11,7 @@ fi
 
 ACCOUNT_EMAIL=$(bashio::config 'accountemail')
 SERVER=$(bashio::config 'server')
+SERVERURL=$(bashio::config 'serverurl')
 DOMAIN=$(bashio::config 'domain')
 CHALLENGE_ALIAS=$(bashio::config 'challengealias')
 DNS_PROVIDER=$(bashio::config 'dnsprovider')
@@ -23,6 +24,7 @@ KEY_FILE=$(bashio::config 'keyfile')
 source <(echo "$DNS_ENV_VARS");
 
 # Set the default CA
+SERVER=${SERVERURL:-$SERVER}
 bashio::log.info "Setting the default CA to: $SERVER"
 acme.sh --set-default-ca --server "$SERVER"
 

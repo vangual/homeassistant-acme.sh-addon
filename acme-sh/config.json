@@ -11,6 +11,7 @@
   "options": {
     "accountemail": null,
     "server": "letsencrypt",
+    "serverurl": null,
     "domain": null,
     "challengealias": null,
     "dnsprovider": null,
@@ -24,6 +25,7 @@
   "schema": {
     "accountemail": "email",
     "server": "list(letsencrypt|letsencrypt_test|buypass|buypass_test|zerossl|sslcom|google|googletest)",
+    "serverurl": "url?",
     "domain": "str",
     "challengealias": "str?",
     "dnsprovider": "str",

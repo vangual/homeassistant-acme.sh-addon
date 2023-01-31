@@ -1,7 +1,10 @@
 configuration:
   server:
     name: CA server to use
-    description: One of the supported CA servers by acme.sh. For more information see <a href="https://github.com/acmesh-official/acme.sh/wiki/Server">the documentation</a>. Only the shorthand labels are supported currently.
+    description: One of the supported CA servers by acme.sh. For more information see [the wiki page](https://github.com/acmesh-official/acme.sh/wiki/Server).
+  serverurl:
+    name: ACME server directory URL (optional)
+    description: Custom ACME server URL. If specified, this will override the CA selection above. For possible values, consult your CA or [the wiki page](https://github.com/acmesh-official/acme.sh/wiki/Server).
   challengealias:
     name: Challenge alias domain
-    description: Alternative domain to modify and validate against. See <a href="https://github.com/acmesh-official/acme.sh/wiki/DNS-alias-mode">the wiki page</a> for details.
+    description: Alternative domain to modify and validate against. See [the wiki page](https://github.com/acmesh-official/acme.sh/wiki/DNS-alias-mode) for details.
