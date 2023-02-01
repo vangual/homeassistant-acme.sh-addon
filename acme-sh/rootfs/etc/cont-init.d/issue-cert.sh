@@ -23,6 +23,8 @@ KEY_FILE=$(bashio::config 'keyfile')
 # shellcheck source=/dev/null
 source <(echo "$DNS_ENV_VARS");
 
+acme.sh --version
+
 # Set the default CA
 SERVER=${SERVERURL:-$SERVER}
 bashio::log.info "Setting the default CA to: $SERVER"
